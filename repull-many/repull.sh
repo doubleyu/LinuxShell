@@ -18,6 +18,12 @@ Date=(${arrs[4]})
 DateA=(`echo ${arrs[4]} | tr -d '-'`)
 HdfsLogFileListLoc=${arrs[5]}
 
+Loc=${HdfsLogFileListLoc%/*}
+FileList=${HdfsLogFileListLoc##*/}
+#echo "location is :"${FileList}
+
+
+
 dStr=""
 for d in ${Date[@]}
 do
@@ -38,7 +44,7 @@ done
 
 if [[ "$HdfsLogFileListLoc" =~ "-auto ".* ]]
 then
-HdfsLogFileListLoc='/data/mokylin/'${HdfsLogFileListLoc#-auto }'/log/logsinfo'
+HdfsLogFileListLoc='/data/mokylin/'${HdfsLogFileListLoc#-auto }'/log/logsinfo/hdfsLogFileList.txt'
 fi
 
 #echo ${HdfsLogFileListLoc}
@@ -51,13 +57,15 @@ echo 'hdfs dfs -ls /user/hive/warehouse/'${Game}'/*/plat=*/date={'${dStr%,}'}/'$
 echo
 echo 'hdfs dfs -rm /user/hive/warehouse/'${Game}'/*/plat=*/date={'${dStr%,}'}/'${GamePre}'_*.txt'
 echo
-echo 'hdfs dfs -copyToLocal '${HdfsLogFileListLoc}'/hdfsLogFileList.txt ./'
+echo 'hdfs dfs -cp -f '${HdfsLogFileListLoc}' '${HdfsLogFileListLoc}'_bak'
 echo
-echo 'grep -vE "'${daStr%|}'" hdfsLogFileList.txt > hdfsLogFileList_new.txt'
+echo 'hdfs dfs -copyToLocal '${HdfsLogFileListLoc}' ./'
 echo
-echo 'hdfs dfs -copyFromLocal hdfsLogFileList_new.txt '${HdfsLogFileListLoc}'/hdfsLogFileList.txt'
+echo 'grep -vE "'${daStr%|}'" '${FileList}' > hdfsLogFileList_new.txt'
 echo
-echo 'hdfs dfs -copyFromLocal -f hdfsLogFileList_new.txt '${HdfsLogFileListLoc}'/hdfsLogFileList.txt'
+echo 'hdfs dfs -copyFromLocal hdfsLogFileList_new.txt '${HdfsLogFileListLoc}
+echo
+echo 'hdfs dfs -copyFromLocal -f hdfsLogFileList_new.txt '${HdfsLogFileListLoc}
 echo
 echo 'oozie job --oozie http://hadoop-c1-r1-f1-s2:11000/oozie -config ./job.properties -run'
 echo
