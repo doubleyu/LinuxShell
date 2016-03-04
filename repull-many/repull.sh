@@ -3,7 +3,7 @@ ConfigFile=${1:?"fileName missing."}
 i=0;
 while read line
 do
-if [ "${#line}" = 0 ] 
+if [ "${#line}" = 0 ] || [[ ${line} =~ ^#.* ]]
 then continue;
 fi
 i=`expr $i + 1`
