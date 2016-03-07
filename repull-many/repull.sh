@@ -45,6 +45,7 @@ done
 if [[ "$HdfsLogFileListLoc" =~ "-auto ".* ]]
 then
 HdfsLogFileListLoc='/data/mokylin/'${HdfsLogFileListLoc#-auto }'/log/logsinfo/hdfsLogFileList.txt'
+FileList='hdfsLogFileList.txt'
 fi
 
 #echo ${HdfsLogFileListLoc}
