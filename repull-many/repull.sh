@@ -17,9 +17,12 @@ GamePre=${arrs[3]}
 Date=(${arrs[4]})
 DateA=(`echo ${arrs[4]} | tr -d '-'`)
 HdfsLogFileListLoc=${arrs[5]}
+platOrig=${arrs[6]:-*}
 
 Loc=${HdfsLogFileListLoc%/*}
 FileList=${HdfsLogFileListLoc##*/}
+platList=${platOrig#*=}
+#echo ${platList}
 #echo "location is :"${FileList}
 
 
@@ -48,15 +51,16 @@ HdfsLogFileListLoc='/data/mokylin/'${HdfsLogFileListLoc#-auto }'/log/logsinfo/hd
 FileList='hdfsLogFileList.txt'
 fi
 
+#echo ${platName}
 #echo ${HdfsLogFileListLoc}
 
 
 echo
 echo 'oozie job -oozie http://hadoop-c1-r1-f1-s2:11000/oozie  -kill '${RunningJob};
 echo
-echo 'hdfs dfs -ls /user/hive/warehouse/'${Game}'/*/plat=*/date={'${dStr%,}'}/'${GamePre}'_*.txt'
+echo 'hdfs dfs -ls /user/hive/warehouse/'${Game}'/*/plat={'${platList}'}/date={'${dStr%,}'}/'${GamePre}'_*.txt'
 echo
-echo 'hdfs dfs -rm /user/hive/warehouse/'${Game}'/*/plat=*/date={'${dStr%,}'}/'${GamePre}'_*.txt'
+echo 'hdfs dfs -rm /user/hive/warehouse/'${Game}'/*/plat={'${platList}'}/date={'${dStr%,}'}/'${GamePre}'_*.txt'
 echo
 echo 'hdfs dfs -cp -f '${HdfsLogFileListLoc}' '${HdfsLogFileListLoc}'_bak'
 echo

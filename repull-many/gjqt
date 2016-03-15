@@ -1,10 +1,15 @@
-0062928-160201100407951-hadoop-C
+0089034-160201100407951-hadoop-B
 
 gjqt.db
 
 gjqt
 
-2016-02-22 2016-02-25 2016-02-29
+2016-02-25
 
-/data/mokylin/gjqt/ip194/logsinfo/ip194hdfsLogFileList.txt
-#/data/mokylin/gjqt/m1011/logsinfo/m1011hdfsLogFileList.txt
+#/data/mokylin/gjqt/ip194/logsinfo/ip194hdfsLogFileList.txt
+
+#plat=tx
+
+/data/mokylin/gjqt/m1011/logsinfo/m1011hdfsLogFileList.txt
+
+plat=160yx,176g,37wan,6cn,7k7k,99yx,baidu,baiyu,funshion,game5,ifeng,kugou,kuwo,kx12,pps,pptv,shunw,sogou,tbaidu,wan669,xunlei,yaodou,yy
