@@ -1,9 +1,0 @@
-#!/bin/bash
-aaaaaaaa
-bbbbbbbb
-cccccccc
-dddddddd
-eeeeeee
-ffffffff
-aaabbb
-bbbbaaaa

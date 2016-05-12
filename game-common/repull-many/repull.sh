@@ -28,9 +28,8 @@ platList=${platOrig#*=}
 #[ ! ${#platIdOrig} -gt 1 ] && echo "plat id is null"
 platIdList=""
 #platIdList=`echo ${platIdOrig} | awk -f ./multi-modify.awk`
-[ ${#platIdOrig} -gt 1 ] && platIdList=`echo $platIdOrig | sed -e 's/.*=\(.*\)/\1/g' -e 's/,/|/g' -e 's/.*/(&)_.*/'`
+[ ${#platIdOrig} -gt 1 ] && platIdList=`echo $platIdOrig | sed -e 's/.*=\(.*\)/\1/g' -e 's/,/|/g' -e 's/.*/(&)_[0-9]*/'`
 #platIdList=`echo ${platIdOrig} | awk -f ./multi-modify.awk`
-
 
 #echo ${platList}
 #echo "location is :"${FileList}
@@ -76,7 +75,7 @@ echo
 echo 'hdfs dfs -cp -f '${HdfsLogFileListLoc}' '${HdfsLogFileListLoc}'_bak'
 echo
 echo 'hdfs dfs -copyToLocal '${HdfsLogFileListLoc}' ./'
-echo
+echo 
 echo 'grep -vE "'${platIdList}'('${daStr%|}')" '${FileList}' > hdfsLogFileList_new.txt'
 echo
 echo 'hdfs dfs -copyFromLocal hdfsLogFileList_new.txt '${HdfsLogFileListLoc}
